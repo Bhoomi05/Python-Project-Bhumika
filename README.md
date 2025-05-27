@@ -17,7 +17,7 @@ This project scrapes top-rated movies by genre from IMDb and suggests a movie to
 - `movies.csv` – CSV file with scraped data.
 - `requirements.txt` – List of python libraries used.
 
-## 🚀 How to Run This Project
+##  How to Run This Project
 
 Step 1: Install required libraries
 pip install -r requirements.txt
@@ -33,5 +33,5 @@ python suggestor.py
 Welcome to Movie Picker Bot!
 Enter a genre (action, comedy, drama, romance, thriller): comedy
 
-🎥 We suggest you watch: '9. Suttaa Thale Enakku'
-⭐ IMDb Rating: 9.8
+ We suggest you watch: '9. Suttaa Thale Enakku'
+ IMDb Rating: 9.8
