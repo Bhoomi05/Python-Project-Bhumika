@@ -8,7 +8,7 @@ def scrape_movies(genres, movies_per_genre=10):
     all_movies = []
 
     for genre in genres:
-        print(f"🎬 Scraping top {movies_per_genre} movies for genre: {genre}")
+        print(f" Scraping top {movies_per_genre} movies for genre: {genre}")
         url = f"https://www.imdb.com/search/title/?genres={genre}&sort=user_rating,desc&title_type=feature"
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -16,8 +16,8 @@ def scrape_movies(genres, movies_per_genre=10):
 
         try:
             response = requests.get(url, headers=headers)
-            print(f"🔎 HTTP Status Code for {genre}: {response.status_code}")
-            print(f"📄 Response length: {len(response.text)} characters")
+            print(f" HTTP Status Code for {genre}: {response.status_code}")
+            print(f" Response length: {len(response.text)} characters")
             with open(f"{genre}_page.html", "w", encoding="utf-8") as f:
                 f.write(response.text)
             response.raise_for_status()
@@ -27,7 +27,7 @@ def scrape_movies(genres, movies_per_genre=10):
 
         soup = BeautifulSoup(response.text, 'html.parser')
         movie_blocks = soup.select('li.ipc-metadata-list-summary-item')
-        print(f"🔍 Found {len(movie_blocks)} movie blocks for {genre}")
+        print(f" Found {len(movie_blocks)} movie blocks for {genre}")
 
         for movie in movie_blocks[:movies_per_genre]:
             try:
@@ -43,7 +43,7 @@ def scrape_movies(genres, movies_per_genre=10):
                 'Rating': rating
                 })
             except Exception as e:
-                print(f"⚠️ Error parsing a movie: {e}")
+                print(f" Error parsing a movie: {e}")
                 continue
 
 
@@ -56,12 +56,12 @@ def scrape_movies(genres, movies_per_genre=10):
     return pd.DataFrame(all_movies)
 
 if __name__ == "__main__":
-    print("🚀 Starting scraper...")
+    print(" Starting scraper...")
     genres = ['action', 'comedy', 'drama', 'romance', 'thriller']
     df_movies = scrape_movies(genres)
 
     if df_movies.empty:
-        print("❌ Failed to scrape any movies. Check your selectors or site structure.")
+        print(" Failed to scrape any movies. Check your selectors or site structure.")
     else:
         df_movies.to_csv('movies.csv', index=False)
-        print("✅ movies.csv created successfully!")
+        print(" movies.csv created successfully!")
